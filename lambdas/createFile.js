@@ -8,7 +8,7 @@ exports.handler = async event => {
 
     if (!event.pathParameters || !event.pathParameters.fileName) {
         // if fileName not exist on url
-        return Responses._400({ message: 'File not exist!!!' });
+        return Responses._Error400({ message: 'File not exist!!!' });
     }
 
     let fileName = event.pathParameters.fileName;
@@ -20,8 +20,8 @@ exports.handler = async event => {
     });
 
     if (!newData) {
-        return Responses._400({ message: 'Failed to write data by filename' });
+        return Responses._Error400({ message: 'Failed to write data by filename' });
     }
 
-    return Responses._200({ newData });
+    return Responses._Ok200({ newData });
 };

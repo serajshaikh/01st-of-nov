@@ -1,5 +1,5 @@
 const Responses = {
-    _200(data = {}) {
+    _Ok200(data = {}) {
         return {
             headers: {
                 'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ const Responses = {
         };
     },
 
-    _400(data = {}) {
+    _Error400(data = {}) {
         return {
             headers: {
                 'Content-Type': 'application/json',

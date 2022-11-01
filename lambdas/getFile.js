@@ -8,7 +8,7 @@ exports.handler = async event => {
 
     if (!event.pathParameters || !event.pathParameters.fileName) {
         // failed without an fileName
-        return Responses._400({ message: 'File Not Fount, Sorry!!!' });
+        return Responses._Error400({ message: 'File Not Fount, Sorry!!!' });
     }
 
     let fileName = event.pathParameters.fileName;
@@ -19,8 +19,8 @@ exports.handler = async event => {
     });
 
     if (!file) {
-        return Responses._400({ message: 'Failed to read data by filename' });
+        return Responses._Error400({ message: 'Failed to read data by filename' });
     }
 
-    return Responses._200({ file });
+    return Responses._Ok200({ file });
 };

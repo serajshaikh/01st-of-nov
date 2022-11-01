@@ -8,7 +8,7 @@ exports.handler = async event => {
 
     if (!event.pathParameters || !event.pathParameters.fileName) {
         // if fileName not exist on url
-        return Responses._400({ message: 'File not exist!!!' });
+        return Responses._Error400({ message: 'File not exist!!!' });
     }
 
     let fileName = event.pathParameters.fileName;
@@ -18,8 +18,8 @@ exports.handler = async event => {
     });
 
     if (!res) {
-        return Responses._400({ message: 'Failed to delete data by filename' });
+        return Responses._Error400({ message: 'Failed to delete data by filename' });
     }
 
-    return Responses._200({ res });
+    return Responses._Ok200({ res });
 };
