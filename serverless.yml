@@ -1,0 +1,52 @@
+service: myserverlessproject
+
+provider:
+    name: aws
+    runtime: nodejs14.x
+    profile: serverlessUser
+    region: us-east-1
+    environment:
+        bucketName: ${self:custom.bucketName}
+    iamRoleStatements:
+        - Effect: Allow
+          Action:
+              - s3:*
+          Resource: '*'
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+custom:
+    bucketName: myserverlessprojectuploadbucket-ahamad
+
+functions:
+    createFile:
+        handler: lambdas/createFile.handler
+        events:
+            - http:
+                  path: create-file/{fileName}
+                  method: POST
+                  cors: true
+    deleteFile:
+        handler: lambdas/deleteFile.handler
+        events:
+            - http:
+                  path: delete-file/{fileName}
+                  method: POST
+                  cors: true
+    getFile:
+        handler: lambdas/getFile.handler
+        events:
+            - http:
+                  path: get-file/{fileName}
+                  method: GET
+                  cors: true
+
+resources:
+    Resources:
+        DemoBucketUpload:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: ${self:custom.bucketName}
